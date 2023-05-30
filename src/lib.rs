@@ -32,20 +32,16 @@ pub use convert::with_trimmer::{
 };
 
 #[cfg(feature = "prefixed")]
-pub use prefix::prefixed::{prefixed, Prefixed};
+pub use prefix::{prefixed, Prefixed};
 
 #[cfg(feature = "case_insensitive_prefixed")]
-pub use prefix::case_insensitive_prefixed::{
-    case_insensitive_prefixed, CaseInsensitivePrefixed,
-};
+pub use prefix::{case_insensitive_prefixed, CaseInsensitivePrefixed};
 
 #[cfg(feature = "postfixed")]
-pub use postfix::postfixed::{postfixed, Postfixed};
+pub use postfix::{postfixed, Postfixed};
 
 #[cfg(feature = "case_insensitive_postfixed")]
-pub use postfix::case_insensitive_postfixed::{
-    case_insensitive_postfixed, CaseInsensitivePostfixed,
-};
+pub use postfix::{case_insensitive_postfixed, CaseInsensitivePostfixed};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 

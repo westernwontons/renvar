@@ -1,8 +1,6 @@
-use std::env;
-
-use serde::de::{self};
-
 use crate::{de::EnvVarDeserializer, sanitize::is_quote_or_whitespace, Error, Result};
+use serde::de;
+use std::env;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -460,9 +458,8 @@ pub(crate) fn maybe_invalid_unicode_vars_os(
 
 #[cfg(test)]
 mod tests {
-    use serde::Deserialize;
-
     use super::*;
+    use serde::Deserialize;
 
     #[derive(Debug, Deserialize, PartialEq)]
     struct Unit;
