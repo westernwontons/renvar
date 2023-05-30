@@ -444,13 +444,8 @@ pub(crate) fn maybe_invalid_unicode_vars_os(
     // we don't expect a lot of errors to happen, so it's better to just clone,
     // instead of putting a lifetime bound with a Cow or OsStr on renvar::Error
     for (key, value) in vars.iter() {
-        if let Err(key_error) = key {
-            return Err(Error::InvalidUnicode(key_error.clone()));
-        }
-
-        if let Err(value_error) = value {
-            return Err(Error::InvalidUnicode(value_error.clone()));
-        }
+        key.clone().map_err(Error::InvalidUnicode)?;
+        value.clone().map_err(Error::InvalidUnicode)?;
     }
 
     Ok(vars
