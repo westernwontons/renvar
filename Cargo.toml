@@ -3,10 +3,32 @@ name = "renvar"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 serde = "1.0.163"
 
 [dev-dependencies]
 serde = { version = "1.0.163", features = ["derive"] }
+
+[features]
+prefixed = []
+case_insensitive_prefixed = []
+postfixed = []
+case_insensitive_postfixed = []
+with_trimmer = []
+
+default = ["prefixed"]
+
+full = [
+	"prefixed",
+	"case_insensitive_prefixed",
+	"postfixed",
+	"case_insensitive_postfixed",
+	"with_trimmer",
+]
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
+
+[package.metadata.playground]
+features = ["full"]

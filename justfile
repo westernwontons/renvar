@@ -4,7 +4,7 @@ alias br := build-release
 
 
 test:
-	cargo test
+	cargo test --all-features
 
 build:
 	cargo build

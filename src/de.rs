@@ -1,3 +1,60 @@
+//! Module that provides an `EnvVarDeserializer`, that does exactly as it says:
+//! deserializes environment variables into Rust structs
+//!
+//! Most of the work is based on [envy](https://docs.rs/envy/0.4.2/envy/), but
+//! with some slight differences.
+//!
+//! Do note that even though this module is public, users should prefer to use
+//! the public functions exposed by this crate,
+//! such as [`crate::from_iter`], [`crate::from_env`] or [`crate::from_str`]
+//!
+//! If those functions don't cut it, you can use the [`EnvVarDeserializer`] directly.
+//!
+//! # Example
+//!
+//! ```
+//! use renvar::de::EnvVarDeserializer;
+//! use serde::Deserialize;
+//! use std::env;
+//!
+//! #[derive(Deserialize, Debug, PartialEq, Eq)]
+//! struct CustomStruct {
+//!     field: String,
+//! }
+//!
+//! let iter = vec![(String::from("field"), String::from("value"))];
+//!
+//! let de = EnvVarDeserializer::new(iter.into_iter());
+//!
+//! let custom_struct = CustomStruct::deserialize(de).unwrap();
+//!
+//! assert_eq!(
+//!     custom_struct,
+//!     CustomStruct {
+//!         field: String::from("value")
+//!     }
+//! );
+//!
+//! // or from actual env vars, not simulated ones
+//!
+//! let iter = vec![(String::from("field"), String::from("value"))];
+//!
+//! for (key, value) in iter.into_iter() {
+//!     env::set_var(key, value);
+//! }
+//!
+//! let de = EnvVarDeserializer::new(env::vars());
+//!
+//! let custom_struct = CustomStruct::deserialize(de).unwrap();
+//!
+//! assert_eq!(
+//!     custom_struct,
+//!     CustomStruct {
+//!         field: String::from("value")
+//!     }
+//! )
+//! ```
+
 use std::iter::empty;
 
 use serde::de::value::{MapDeserializer, SeqDeserializer};
@@ -143,6 +200,10 @@ impl<'de> de::Deserializer<'de> for EnvVarValue {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+/// An iterator over environment variables of `(key, value)` pairs
+///
+/// Note: Calling [`Iterator::next`] will lowercase all keys
+/// before returning them
 #[derive(Debug)]
 struct EnvVars<Iter>(Iter)
 where
@@ -165,10 +226,10 @@ where
 
 /// Deserializer for environment variables
 ///
-/// Can be constructred from a type that implements `Iterator`
+/// Can be constructred from a type that implements [`Iterator`]
 /// over `(String, String)` tuples
 ///
-/// Alternatively, can be constructed from a [`String`] or [`str`] reference
+/// Alternatively, can be constructed from a [`str`] using [`crate::from_str`]
 #[derive(Debug)]
 pub struct EnvVarDeserializer<'de, Iter>
 where
