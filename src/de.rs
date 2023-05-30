@@ -1,4 +1,4 @@
-//! Module that provides an `EnvVarDeserializer`, that does exactly as it says:
+//! Module that provides an [`EnvVarDeserializer`], that does exactly as it says:
 //! deserializes environment variables into Rust structs
 //!
 //! Most of the work is based on [envy](https://docs.rs/envy/0.4.2/envy/), but

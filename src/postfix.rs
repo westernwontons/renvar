@@ -18,7 +18,7 @@ pub mod postfixed {
     ///
     /// let with_postfix: Postfixed = postfixed("_APP");
     ///
-    /// // Note that `postfixed` is behind the `postfixed` feature flag
+    /// assert_eq!(with_postfix.postfix(), "_APP")
     /// ```
     #[derive(Debug)]
     pub struct Postfixed<'a>(&'a str);
@@ -57,8 +57,6 @@ pub mod postfixed {
         ///         key: "value".to_owned()
         ///     }
         /// )
-        ///
-        /// // Note that `postfixed` is behind the `postfixed` feature flag
         /// ```
         pub fn from_env<T>(&self) -> Result<T>
         where
@@ -174,7 +172,7 @@ pub mod postfixed {
     ///
     /// let with_postfix = postfixed("_APP");
     ///
-    /// // Note that `postfixed` is behind the `postfixed` feature flag
+    /// assert_eq!(with_postfix.postfix(), "_APP")
     /// ```
     pub fn postfixed(postfix: &str) -> Postfixed<'_> {
         Postfixed(postfix)
@@ -407,7 +405,7 @@ pub mod case_insensitive_postfixed {
     ///
     /// let with_postfix: CaseInsensitivePostfixed = case_insensitive_postfixed("_app");
     ///
-    /// // Note that `case_insensitive_postfixed` is behind the `case_insensitive_postfixed` feature flag
+    /// assert_eq!(with_postfix.postfix(), "_app")
     /// ```
     pub fn case_insensitive_postfixed(postfix: &str) -> CaseInsensitivePostfixed<'_> {
         CaseInsensitivePostfixed(postfix)

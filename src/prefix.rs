@@ -21,8 +21,6 @@ pub mod prefixed {
     /// let with_prefix: Prefixed = prefixed("APP_");
     ///
     /// assert_eq!(with_prefix.prefix(), "APP_")
-    ///
-    /// // Note that `prefixed` is behind the `prefixed` feature flag
     /// ```
     #[derive(Debug)]
     pub struct Prefixed<'a>(&'a str);
@@ -62,8 +60,6 @@ pub mod prefixed {
         ///         key: String::from("value")
         ///     }
         /// )
-        ///
-        /// // Note that `prefixed` is behind the `prefixed` feature flag
         /// ```
         pub fn from_env<T>(&self) -> Result<T>
         where
@@ -106,8 +102,6 @@ pub mod prefixed {
         ///         key: String::from("value")
         ///     }
         /// );
-        ///
-        /// // Note that `prefixed` is behind the `prefixed` feature flag
         /// ```
         pub fn from_os_env<T>(&self) -> Result<T>
         where
@@ -182,7 +176,7 @@ pub mod prefixed {
     ///
     /// let with_prefix = prefixed("APP_");
     ///
-    /// // Note that `prefixed` is behind the `prefixed` feature flag
+    /// assert_eq!(with_prefix.prefix(), "APP_")
     /// ```
     pub fn prefixed(prefix: &str) -> Prefixed<'_> {
         Prefixed(prefix)

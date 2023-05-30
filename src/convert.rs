@@ -61,7 +61,7 @@ use crate::{de::EnvVarDeserializer, sanitize::is_quote_or_whitespace, Error, Res
 ///     }
 /// );
 ///
-/// // With maybe being a `String`:
+/// // With `maybe` being a `String`:
 ///
 /// #[derive(Debug, Deserialize, PartialEq, Eq)]
 /// struct AnotherCustomStruct {
@@ -293,6 +293,35 @@ pub mod with_trimmer {
     /// environment variables.
     ///
     /// For a panicky alternative, use [`crate::from_env`] or [`crate::from_env_with_trimmer`]
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use renvar::from_os_env_with_trimmer;
+    /// use serde::Deserialize;
+    /// use std::env;
+    ///
+    /// #[derive(Debug, Deserialize, PartialEq, Eq)]
+    /// struct CustomStruct {
+    ///     key: String,
+    /// }
+    ///
+    /// let envs = vec![("key".to_owned(), "value. ..".to_owned())];
+    ///
+    /// for (key, value) in envs.into_iter() {
+    ///     env::set_var(key, value);
+    /// }
+    ///
+    /// let custom_struct: CustomStruct =
+    ///     from_os_env_with_trimmer(|c: char| c == ' ' || c == '.').unwrap();
+    ///
+    /// assert_eq!(
+    ///     custom_struct,
+    ///     CustomStruct {
+    ///         key: "value".to_owned()
+    ///     }
+    /// );
+    /// ```
     pub fn from_os_env_with_trimmer<T, Trimmer>(trimmer: Trimmer) -> Result<T>
     where
         T: de::DeserializeOwned,
@@ -324,6 +353,32 @@ pub mod with_trimmer {
 /// Note that if the environment variables contain potentionally invalid unicode, this function will panic.
 ///
 /// For a non-panicky alternative, use [`crate::from_os_env`] or [`crate::from_os_env_with_trimmer`]
+///
+/// ```
+/// use renvar::from_env;
+/// use serde::Deserialize;
+/// use std::env;
+///
+/// #[derive(Debug, Deserialize, PartialEq, Eq)]
+/// struct CustomStruct {
+///     key: String,
+/// }
+///
+/// let envs = vec![("key".to_owned(), "value".to_owned())];
+///
+/// for (key, value) in envs.into_iter() {
+///     env::set_var(key, value);
+/// }
+///
+/// let custom_struct: CustomStruct = from_env().unwrap();
+///
+/// assert_eq!(
+///     custom_struct,
+///     CustomStruct {
+///         key: "value".to_owned()
+///     }
+/// );
+/// ```
 pub fn from_env<T>() -> Result<T>
 where
     T: de::DeserializeOwned,
@@ -342,6 +397,32 @@ where
 /// For a panicky alternative, use [`crate::from_env`] or [`crate::from_env_with_trimmer`],
 ///
 /// Note: [`crate::from_env_with_trimmer`] is behind the `with_trimmer` feature flag
+///
+/// ```
+/// use renvar::from_os_env;
+/// use serde::Deserialize;
+/// use std::env;
+///
+/// #[derive(Debug, Deserialize, PartialEq, Eq)]
+/// struct CustomStruct {
+///     key: String,
+/// }
+///
+/// let envs = vec![("key".to_owned(), "value".to_owned())];
+///
+/// for (key, value) in envs.into_iter() {
+///     env::set_var(key, value);
+/// }
+///
+/// let custom_struct: CustomStruct = from_os_env().unwrap();
+///
+/// assert_eq!(
+///     custom_struct,
+///     CustomStruct {
+///         key: "value".to_owned()
+///     }
+/// );
+/// ```
 pub fn from_os_env<T>() -> Result<T>
 where
     T: de::DeserializeOwned,
