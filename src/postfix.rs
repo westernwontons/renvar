@@ -85,8 +85,7 @@ pub mod postfixed {
         ///     key: String,
         /// }
         ///
-        ///
-        /// let envs = vec![("KEY_APP".to_owned(), "value".to_owned()))];
+        /// let envs = vec![("KEY_APP".to_owned(), "value".to_owned())];
         ///
         /// for (key, value) in envs.into_iter() {
         ///     env::set_var(key, value);
@@ -100,9 +99,7 @@ pub mod postfixed {
         ///     CustomStruct {
         ///         key: "value".to_owned()
         ///     }
-        /// );
-        ///
-        /// // Note that `postfixed` is behind the `postfixed` feature flag
+        /// )
         /// ```
         pub fn from_os_env<T>(&self) -> Result<T>
         where
@@ -118,6 +115,7 @@ pub mod postfixed {
         ///
         /// ```
         /// use renvar::{postfixed, Postfixed};
+        /// use serde::Deserialize;
         ///
         /// #[derive(Debug, Deserialize, PartialEq, Eq)]
         /// struct CustomStruct {
@@ -127,12 +125,12 @@ pub mod postfixed {
         /// }
         ///
         /// let vars = vec![
-        ///     ("KEY1_SUFFIX".to_owned(), "value1".to_owned()),
-        ///     ("KEY2_SOME_SUFFIX".to_owned(), "value2".to_owned()),
-        ///     ("KEY3_SUFFIX".to_owned(), "value3".to_owned()),
+        ///     ("KEY1_APP".to_owned(), "value1".to_owned()),
+        ///     ("KEY2_APP".to_owned(), "value2".to_owned()),
+        ///     ("KEY3_APP".to_owned(), "value3".to_owned()),
         /// ];
         ///
-        /// let with_postfix: Postfixed = postfixed("_SUFFIX");
+        /// let with_postfix: Postfixed = postfixed("_APP");
         /// let custom_struct: CustomStruct = with_postfix.from_iter(vars).unwrap();
         ///
         /// assert_eq!(
@@ -140,7 +138,7 @@ pub mod postfixed {
         ///     CustomStruct {
         ///         key1: "value1".to_owned(),
         ///         key2: "value2".to_owned(),
-        ///         key3: "value3".to_owned()
+        ///         key3: Some("value3".to_owned())
         ///     }
         /// )
         /// ```

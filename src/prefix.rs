@@ -20,6 +20,8 @@ pub mod prefixed {
     ///
     /// let with_prefix: Prefixed = prefixed("APP_");
     ///
+    /// assert_eq!(with_prefix.prefix(), "APP_")
+    ///
     /// // Note that `prefixed` is behind the `prefixed` feature flag
     /// ```
     #[derive(Debug)]
@@ -160,6 +162,12 @@ pub mod prefixed {
                     None
                 }
             }))
+        }
+
+        /// Retrieve the prefix specified at the time
+        /// of constructing an instance of [`Prefixed`]
+        pub fn prefix(&self) -> &str {
+            self.0
         }
     }
 
@@ -352,11 +360,11 @@ pub mod case_insensitive_prefixed {
         ///     key3: String,
         /// }
         ///
-        /// let with_prefix: CaseInsensitivePrefixed = case_insensitive_prefixed("_SUFfix");
+        /// let with_prefix: CaseInsensitivePrefixed = case_insensitive_prefixed("aPP_");
         /// let vars = vec![
-        ///     ("KEY1_SUFFiX".to_owned(), "value1".to_owned()),
-        ///     ("KEY2_SUffIX".to_owned(), "value2".to_owned()),
-        ///     ("KEY3_suFFIX".to_owned(), "value3".to_owned()),
+        ///     ("App_KEY1".to_owned(), "value1".to_owned()),
+        ///     ("App_KEY2".to_owned(), "value2".to_owned()),
+        ///     ("App_KEY3".to_owned(), "value3".to_owned()),
         /// ];
         ///
         /// let custom_struct: CustomStruct = with_prefix.from_iter(vars).unwrap();
@@ -411,9 +419,9 @@ pub mod case_insensitive_prefixed {
     /// ```
     /// use renvar::{case_insensitive_prefixed, CaseInsensitivePrefixed};
     ///
-    /// let with_prefix: CaseInsensitivePrefixed = case_insensitive_prefixed("_app");
+    /// let with_prefix: CaseInsensitivePrefixed = case_insensitive_prefixed("app_");
     ///
-    /// // Note that `case_insensitive_prefixed` is behind the `case_insensitive_prefixed` feature flag
+    /// assert_eq!(with_prefix.prefix(), "app_")
     /// ```
     pub fn case_insensitive_prefixed(prefix: &str) -> CaseInsensitivePrefixed<'_> {
         CaseInsensitivePrefixed(prefix)

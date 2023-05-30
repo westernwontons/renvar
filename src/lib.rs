@@ -7,7 +7,8 @@
     clippy::missing_docs_in_private_items,
     clippy::missing_errors_doc,
     clippy::wrong_self_convention,
-    clippy::bare_urls
+    clippy::bare_urls,
+    rustdoc::invalid_rust_codeblocks
 )]
 
 mod prefix;
