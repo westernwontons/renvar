@@ -32,6 +32,10 @@ use std::env;
 /// your result will be an empty [`String`]. This means an allocation, so unless
 /// you want this behaviour, you're encouraged to instead define it as an `Option<String>`
 ///
+/// # Errors
+///
+/// Any errors that might occur during deserialization
+///
 /// # Example
 ///
 /// ```
@@ -110,6 +114,10 @@ where
 ///
 /// Like with [`from_str`], single quotes, double quotes and whitespace will be trimmed
 ///
+/// # Errors
+///
+/// Any errors that might occur during deserialization
+///
 /// # Example
 ///
 /// ```
@@ -175,6 +183,10 @@ pub mod with_trimmer {
     ///
     /// For each `char`, returning `true` will have it removed.
     ///
+    /// # Errors
+    ///
+    /// Any errors that might occur during deserialization
+    ///
     /// # Panics
     /// If the environment variable contains invalid unicode. If you'd like to avoid this,
     /// use [`from_os_env_with_trimmer`]
@@ -234,6 +246,10 @@ pub mod with_trimmer {
     ///
     /// For each `char`, returning `true` will have it removed.
     ///
+    /// # Errors
+    ///
+    /// Any errors that might occur during deserialization
+    ///
     /// # Panics
     ///
     /// If the environment variable contains invalid unicode.
@@ -292,6 +308,11 @@ pub mod with_trimmer {
     ///
     /// For a panicky alternative, use [`crate::from_env`] or [`crate::from_env_with_trimmer`]
     ///
+    ///
+    /// # Errors
+    ///
+    /// Any errors that might occur during deserialization
+    ///
     /// # Example
     ///
     /// ```
@@ -348,9 +369,17 @@ pub mod with_trimmer {
 /// Items for which the closure returns `true` will be trimmed from keys and values of the
 /// environment variables.
 ///
-/// Note that if the environment variables contain potentionally invalid unicode, this function will panic.
+/// # Errors
+///
+/// Any errors that might occur during deserialization
+///
+/// # Panics
+///
+/// If the strings contain invalid unicode
 ///
 /// For a non-panicky alternative, use [`crate::from_os_env`] or [`crate::from_os_env_with_trimmer`]
+///
+/// # Example
 ///
 /// ```
 /// use renvar::from_env;
@@ -392,9 +421,15 @@ where
 /// The function will check whether the environment variables contain
 /// valid unicode and as such, uses [`std::env::vars_os`] to avoid panics.
 ///
-/// For a panicky alternative, use [`crate::from_env`] or [`crate::from_env_with_trimmer`],
+/// # Errors
 ///
-/// Note: [`crate::from_env_with_trimmer`] is behind the `with_trimmer` feature flag
+/// Any errors that might occur during deserialization
+///
+/// # Panics
+///
+/// If the strings contain invalid unicode
+///
+/// For a non-panicky alternative, use [`crate::from_os_env`] or [`crate::from_os_env_with_trimmer`]
 ///
 /// ```
 /// use renvar::from_os_env;

@@ -1,5 +1,8 @@
 [package]
 name = "renvar"
+authors = ["Nagy Botond"]
+description = "Library to deserialize environment variables in to Rust datatypes"
+repository = "https://github.com/westernwontons/renvar"
 version = "0.1.0"
 edition = "2021"
 
@@ -11,20 +14,12 @@ serde = { version = "1.0.163", features = ["derive"] }
 
 [features]
 prefixed = []
-case_insensitive_prefixed = []
 postfixed = []
-case_insensitive_postfixed = []
 with_trimmer = []
 
-default = ["prefixed"]
+default = []
 
-full = [
-	"prefixed",
-	"case_insensitive_prefixed",
-	"postfixed",
-	"case_insensitive_postfixed",
-	"with_trimmer",
-]
+full = ["prefixed", "postfixed", "with_trimmer"]
 
 [package.metadata.docs.rs]
 all-features = true

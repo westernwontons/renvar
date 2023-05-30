@@ -1,4 +1,3 @@
-#[doc(hidden)]
 #[macro_export]
 macro_rules! forward_parsed_values {
     ($($typ:ident => $method:ident,)*) => {

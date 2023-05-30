@@ -1,24 +1,17 @@
-#![cfg(feature = "case_insensitive_prefixed")]
-
-use std::{env, string::String};
-
-use serde::de;
-
 use crate::convert::maybe_invalid_unicode_vars_os;
 use crate::{from_iter, Result};
+use serde::de;
+use std::{env, string::String};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/// Represents a case-insensitive prefix used to filter environment variables during deserialization.
-///
-/// It is used to specify a case-insensitive prefix that is used to filter environment variables during deserialization.
+/// Deserialize environment variables with prefixes.
 /// To create an instance of [`CaseInsensitivePrefixed`], you can use the [`case_insensitive_prefixed`] function:
 ///
 /// # Example
 ///
 /// ```
 /// // Creates a new instance of `CaseInsensitivePrefixed` with the specified case-insensitive prefix.
-///
 ///
 /// use renvar::{case_insensitive_prefixed, CaseInsensitivePrefixed};
 ///
@@ -37,6 +30,10 @@ impl<'a> CaseInsensitivePrefixed<'a> {
     /// Deserialize some type `T` from a snapshot of environment
     /// variables, filtering only the variables that end with the
     /// specified prefix.
+    ///
+    /// # Errors
+    ///
+    /// Any errors that might occur during deserialization
     ///
     /// # Example
     ///
@@ -84,6 +81,10 @@ impl<'a> CaseInsensitivePrefixed<'a> {
     /// filtering only the variables that end with the specified prefix.
     /// This method handles environment variables with potentially invalid Unicode.
     ///
+    /// # Errors
+    ///
+    /// Any errors that might occur during deserialization
+    ///
     /// # Example
     ///
     /// ```
@@ -127,6 +128,10 @@ impl<'a> CaseInsensitivePrefixed<'a> {
 
     /// Deserialize some type `T` from an iterator `Iter` that is an iterator over key-value pairs,
     /// filtering only the pairs where the key ends with the specified prefix.
+    ///
+    /// # Errors
+    ///
+    /// Any errors that might occur during deserialization
     ///
     /// # Example
     ///

@@ -71,7 +71,7 @@ use crate::{forward_parsed_values, sanitize::is_quote_or_whitespace, Error, Resu
 ///
 /// In other words, everything *after* `=`
 #[derive(Debug)]
-struct EnvVarValue(String);
+pub(crate) struct EnvVarValue(String);
 
 impl<'de> de::IntoDeserializer<'de, Error> for EnvVarValue {
     type Deserializer = Self;
@@ -343,5 +343,69 @@ mod tests {
                 optional_field: None
             }
         );
+    }
+
+    #[test]
+    fn test_failed_unit_struct_parsing() {
+        let iter = vec![
+            (String::from("string_field"), String::from("hello")),
+            (String::from("empty_string_field"), String::from("")),
+            (String::from("sequence"), String::from("first,second,third")),
+            (
+                String::from("empty_sequence_doublequote"),
+                String::from("\"\""),
+            ),
+            (
+                String::from("empty_sequence_singlequote"),
+                String::from("\'\'"),
+            ),
+            (String::from("empty_sequence_whitespace"), String::from(" ")),
+            (String::from("unit"), String::from("Uni")),
+            (String::from("newtype"), String::from("62875")),
+            (String::from("optional_field"), String::from("")),
+        ];
+
+        let actual = from_iter::<Test, _>(iter);
+
+        if let Err(error) = actual {
+            assert!(
+                error.to_string()
+                    == String::from(
+                        "expected unit struct with name 'Unit', found 'Uni'"
+                    )
+            )
+        }
+    }
+
+    #[test]
+    fn test_failed_newtype_struct_parsing() {
+        let iter = vec![
+            (String::from("string_field"), String::from("hello")),
+            (String::from("empty_string_field"), String::from("")),
+            (String::from("sequence"), String::from("first,second,third")),
+            (
+                String::from("empty_sequence_doublequote"),
+                String::from("\"\""),
+            ),
+            (
+                String::from("empty_sequence_singlequote"),
+                String::from("\'\'"),
+            ),
+            (String::from("empty_sequence_whitespace"), String::from(" ")),
+            (String::from("unit"), String::from("Unit")),
+            (String::from("newtype"), String::from("62875abc")),
+            (String::from("optional_field"), String::from("")),
+        ];
+
+        let actual = from_iter::<Test, _>(iter);
+
+        if let Err(error) = actual {
+            assert!(
+                error.to_string()
+                    == String::from(
+                        "invalid digit found in string while parsing value '62875abc'",
+                    )
+            )
+        }
     }
 }

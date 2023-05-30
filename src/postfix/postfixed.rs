@@ -1,5 +1,3 @@
-#![cfg(feature = "postfixed")]
-
 use crate::convert::maybe_invalid_unicode_vars_os;
 use crate::{from_iter, Result};
 use serde::de;
@@ -26,6 +24,10 @@ pub struct Postfixed<'a>(&'a str);
 impl<'a> Postfixed<'a> {
     /// Deserialize some type `T` from a snapshot of the currently
     /// running process's environment variables at invocation time.
+    ///
+    /// # Errors
+    ///
+    /// Any errors that might occur during deserialization
     ///
     /// # Panics
     /// if any of the environment variables contain invalid unicode
@@ -70,6 +72,10 @@ impl<'a> Postfixed<'a> {
     /// if any of the environment variables contain invalid unicode, instead returns
     /// an error.
     ///
+    /// # Errors
+    ///
+    /// Any errors that might occur during deserialization
+    ///
     /// # Example
     ///
     /// ```
@@ -108,6 +114,10 @@ impl<'a> Postfixed<'a> {
 
     /// Deserialize some type `T` from an iterator `Iter` that is an iterator over key-value pairs,
     /// filtering only the pairs where the key ends with the specified postfix.
+    ///
+    /// # Errors
+    ///
+    /// Any errors that might occur during deserialization
     ///
     /// # Example
     ///

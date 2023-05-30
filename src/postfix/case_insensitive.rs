@@ -1,19 +1,13 @@
-#![cfg(feature = "case_insensitive_postfixed")]
-
 use crate::{convert::maybe_invalid_unicode_vars_os, from_iter, Result};
 use serde::de;
 use std::env;
 
-/// Represents a case-insensitive postfix used to filter environment variables during deserialization.
-///
-/// It is used to specify a case-insensitive postfix that is used to filter environment variables during deserialization.
+/// Deserialize environment variables with postfixes.
 /// To create an instance of [`CaseInsensitivePostfixed`], you can use the [`case_insensitive_postfixed`] function:
 ///
 /// # Example
-///
 /// ```
 /// // Creates a new instance of `CaseInsensitivePostfixed` with the specified case-insensitive postfix.
-///
 ///
 /// use renvar::{case_insensitive_postfixed, CaseInsensitivePostfixed};
 ///
@@ -32,6 +26,16 @@ impl<'a> CaseInsensitivePostfixed<'a> {
     /// Deserialize some type `T` from a snapshot of environment
     /// variables, filtering only the variables that end with the
     /// specified postfix.
+    ///
+    /// # Errors
+    ///
+    /// Any errors that might occur during deserialization
+    ///
+    /// # Panics
+    ///
+    /// If the strings contain invalid unicode
+    ///
+    /// For a non-panicky alternative, use [`crate::from_os_env`] or [`crate::from_os_env_with_trimmer`]
     ///
     /// # Example
     ///
@@ -78,6 +82,10 @@ impl<'a> CaseInsensitivePostfixed<'a> {
     /// filtering only the variables that end with the specified postfix.
     /// This method handles environment variables with potentially invalid Unicode.
     ///
+    /// # Errors
+    ///
+    /// Any errors that might occur during deserialization
+    ///
     /// # Example
     ///
     /// ```
@@ -121,6 +129,16 @@ impl<'a> CaseInsensitivePostfixed<'a> {
 
     /// Deserialize some type `T` from an iterator `Iter` that is an iterator over key-value pairs,
     /// filtering only the pairs where the key ends with the specified postfix.
+    ///
+    /// # Errors
+    ///
+    /// Any errors that might occur during deserialization
+    ///
+    /// # Panics
+    ///
+    /// If the strings contain invalid unicode
+    ///
+    /// For a non-panicky alternative, use [`crate::from_os_env`] or [`crate::from_os_env_with_trimmer`]
     ///
     /// # Example
     ///
