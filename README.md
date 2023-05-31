@@ -89,11 +89,11 @@ before deserialization.
 
 `postfix` is exactly the same as prefix, just with postfixes
 
-# case_insensitive_prefixed
+## case_insensitive_prefixed
 
 Case insensitive variant of `prefixed`
 
-# case_insensitive_postfixed
+## case_insensitive_postfixed
 
 Case insensitive variant of `postfixed`
 
