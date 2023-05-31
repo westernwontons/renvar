@@ -14,7 +14,9 @@ serde = { version = "1.0.163", features = ["derive"] }
 
 [features]
 prefixed = []
+case_insensitive_prefixed = []
 postfixed = []
+case_insensitive_postfixed = []
 with_trimmer = []
 
 default = []
