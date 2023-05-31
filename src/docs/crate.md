@@ -86,7 +86,7 @@ Case insensitive variant of `postfixed`
 ## with_trimmer
 
 Finally, the `with_trimmer` feature flag gives you `*_with_trimmer` variants for all of the above,
-where you can strip extraneous characters off of the beginning and end of envrironment varaibles
+where you can strip extraneous characters off of the beginning and end of envrironment variables
 by passing a closure.
 
 # Supported datatypes
