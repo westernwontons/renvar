@@ -7,7 +7,7 @@ use std::{error::Error as StdError, ffi::OsString, fmt};
 ///
 /// As per the serde convention, crates that use it
 /// to create a Serializer and/or Deserializer are encouraged
-/// to create their own error type and [`crate::Result`] type alias
+/// to provide their own error type and [`crate::Result`] type alias
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Error {
     /// Raised when any of the `from_os_env` functions/methods
@@ -17,7 +17,7 @@ pub enum Error {
     /// Same purpose as [`serde::de::Error::missing_field`],
     MissingValue(String),
 
-    /// same purpose as [`serde::de::Error::custom`]
+    /// Same purpose as [`serde::de::Error::custom`]
     Custom(String),
 }
 
