@@ -103,9 +103,16 @@ Finally, the `with_trimmer` feature flag gives you `*_with_trimmer` variants for
 where you can strip extraneous characters off of the beginning and end of envrironment variables
 by passing a closure.
 
-# Supported datatypes
+## Supported datatypes
 
 - `Strings` and `str`s
 - `enums`
 - `sequences`
 - `Unit structs`
+
+# Development
+
+## Tests
+
+If you have [just](https://github.com/casey/just), you run `just test`,
+otherwise `cargo test --all-features`
