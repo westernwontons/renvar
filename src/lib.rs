@@ -1,4 +1,6 @@
 #![doc = include_str!("docs/crate.md")]
+#![cfg_attr(docsrs, feature(doc_cfg))]
+#![allow(rustdoc::broken_intra_doc_links)]
 #![deny(
     missing_debug_implementations,
     missing_docs,
@@ -6,7 +8,6 @@
     clippy::wrong_self_convention,
     rustdoc::invalid_rust_codeblocks
 )]
-#![allow(rustdoc::broken_intra_doc_links)]
 
 #[cfg(feature = "prefixed")]
 mod prefixed;
