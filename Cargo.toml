@@ -5,6 +5,7 @@ description = "Library to deserialize environment variables in to Rust datatypes
 repository = "https://github.com/westernwontons/renvar"
 version = "0.1.0"
 edition = "2021"
+license-file = "LICENSE"
 
 [dependencies]
 serde = "1.0.163"
