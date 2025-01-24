@@ -1,4 +1,4 @@
-use serde::de::Error as SerdeError;
+use serde::{de::Error as SerdeError, Deserialize, Serialize};
 use std::{error::Error as StdError, ffi::OsString, fmt};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -9,6 +9,7 @@ use std::{error::Error as StdError, ffi::OsString, fmt};
 /// to create a Serializer and/or Deserializer are encouraged
 /// to provide their own error type and [`crate::Result`] type alias
 #[derive(Debug, Clone, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub enum Error {
     /// Raised when any of the `from_os_env` functions/methods
     /// encounter invalid unicode in environment variables
