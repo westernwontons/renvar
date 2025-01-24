@@ -362,13 +362,6 @@ pub mod with_trimmer {
 /// Deserialize some type `T` from a snapshot of the processes environment variables
 /// at the time of invocation.
 ///
-/// The environment variable values might have some unneeded prefix or suffixes.
-/// If this is the case, users are encouraged to use this function, which allows
-/// passing a closure that receives a [`char`] and returns a [`bool`].
-///
-/// Items for which the closure returns `true` will be trimmed from keys and values of the
-/// environment variables.
-///
 /// # Errors
 ///
 /// Any errors that might occur during deserialization
