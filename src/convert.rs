@@ -514,6 +514,7 @@ mod tests {
         newtype: NewType,
         optional_field: Option<String>,
         enumeration: Enumeration,
+        field_with_dot: String,
     }
 
     #[test]
@@ -529,6 +530,7 @@ mod tests {
         newtype=123
         optional_field=
         enumeration=A
+        field_with_dot=file.log
         "#;
 
         let actual = from_str::<Test>(input_str).unwrap();
@@ -550,6 +552,7 @@ mod tests {
                 newtype: NewType(123),
                 optional_field: None,
                 enumeration: Enumeration::A,
+                field_with_dot: String::from("file.log")
             }
         )
     }
@@ -567,6 +570,7 @@ mod tests {
         newtype=123
         optional_field=
         enumeration=A
+        field_with_dot=file.log
         "#;
 
         let actual = from_str::<Test>(input_str).unwrap();
@@ -588,6 +592,7 @@ mod tests {
                 newtype: NewType(123),
                 optional_field: None,
                 enumeration: Enumeration::A,
+                field_with_dot: String::from("file.log")
             }
         )
     }
@@ -605,6 +610,7 @@ mod tests {
         newtype=123
         optional_field=""
         enumeration=A
+        field_with_dot=file.log
         "#;
 
         for line in input_str.lines().filter_map(|l| {
@@ -638,6 +644,7 @@ mod tests {
                 newtype: NewType(123),
                 optional_field: None,
                 enumeration: Enumeration::A,
+                field_with_dot: String::from("file.log")
             }
         );
     }
