@@ -9,10 +9,10 @@ license-file = "LICENSE"
 keywords = ["environment", "variable", "deserialization", "serde"]
 
 [dependencies]
-serde = "1.0.163"
+serde = "1.0.208"
 
 [dev-dependencies]
-serde = { version = "1.0.163", features = ["derive"] }
+serde = { version = "1.0.208", features = ["derive"] }
 
 [features]
 prefixed = []
@@ -20,10 +20,18 @@ case_insensitive_prefixed = []
 postfixed = []
 case_insensitive_postfixed = []
 with_trimmer = []
+serde = []
 
 default = []
 
-full = ["prefixed", "postfixed", "with_trimmer"]
+full = [
+	"prefixed",
+	"case_insensitive_prefixed",
+	"postfixed",
+	"case_insensitive_postfixed",
+	"with_trimmer",
+	"serde",
+]
 
 [package.metadata.docs.rs]
 all-features = true
