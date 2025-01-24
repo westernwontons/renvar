@@ -34,7 +34,7 @@ impl fmt::Display for Error {
                     invalid.to_string_lossy()
                 )
             }
-            Error::MissingValue(field) => write!(fmt, "missing value for {}", &field),
+            Error::MissingValue(field) => write!(fmt, "missing value for '{}'", &field),
             Error::Custom(msg) => write!(fmt, "{}", msg),
         }
     }
