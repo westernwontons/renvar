@@ -226,7 +226,7 @@ where
 
 /// Deserializer for environment variables
 ///
-/// Can be constructred from a type that implements [`Iterator`]
+/// Can be constructed from a type that implements [`Iterator`]
 /// over `(String, String)` tuples
 ///
 /// Alternatively, can be constructed from a [`str`] using [`crate::from_str`]
